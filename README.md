@@ -4,6 +4,8 @@ Sistema web desarrollado para la emisión, registro y verificación de títulos 
 
 El sistema se estructura en dos componentes principales desacoplados:
 - **`backend/`**: API RESTful construida con Express.js, autenticación basada en JSON Web Tokens (JWT), base de datos embebida SQLite y endpoints para el ciclo de vida de los títulos.
+- **`chaincode/`**: Contrato inteligente(chaincode) para la emision y verificaion de titulos en la blockchain.
+- **`network/`**: Scripts para el condicionamiento y ejecucion de la Blockchain.
 - **`frontend/`**: Aplicación de Página Única (Single Page Application - SPA) con React, React Router y estilos institucionales responsivos.
 
 ---
@@ -12,6 +14,8 @@ El sistema se estructura en dos componentes principales desacoplados:
 
 ```text
 tesis-blockchain/
+├── chaincode/                      # Contrato inteligente
+├── network/                        # Red Blockchain
 ├── backend/
 │   ├── controllers/
 │   │   ├── authController.js       # Lógica de login, emisión de JWT y verificación
