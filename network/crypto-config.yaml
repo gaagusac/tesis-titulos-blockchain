@@ -1,0 +1,18 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: usac.edu.gt
+    Specs:
+      - Hostname: orderer
+        SANS:
+          - localhost
+          - 127.0.0.1
+          - orderer.usac.edu.gt
+
+PeerOrgs:
+  - Name: Ingenieria
+    Domain: ingenieria.usac.edu.gt
+    EnableNodeOUs: true
+    Template:
+      Count: 1
+    Users:
+      Count: 1

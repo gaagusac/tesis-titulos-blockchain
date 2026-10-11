@@ -1,0 +1,303 @@
+2026-10-07 23:00:00.375 UTC 0001 INFO [nodeCmd] serve -> Starting peer:
+ Version: v2.5.4
+ Commit SHA: e1e8e2e
+ Go version: go1.20.6
+ OS/Arch: linux/amd64
+ Chaincode:
+  Base Docker Label: org.hyperledger.fabric
+  Docker Namespace: hyperledger
+2026-10-07 23:00:00.379 UTC 0002 INFO [nodeCmd] serve -> Peer config with combined core.yaml settings and environment variable overrides:
+chaincode:
+  builder: $(DOCKER_NS)/fabric-ccenv:$(TWO_DIGIT_VERSION)
+  executetimeout: 30s
+  externalbuilders:
+  - name: ccaas_builder
+    path: /opt/hyperledger/ccaas_builder
+    propagateEnvironment:
+    - CHAINCODE_AS_A_SERVICE_BUILDER_CONFIG
+  golang:
+    dynamiclink: false
+    runtime: $(DOCKER_NS)/fabric-baseos:$(TWO_DIGIT_VERSION)
+  installtimeout: 300s
+  java:
+    runtime: $(DOCKER_NS)/fabric-javaenv:$(TWO_DIGIT_VERSION)
+  keepalive: 0
+  logging:
+    format: '%{color}%{time:2006-01-02 15:04:05.000 MST} [%{module}] %{shortfunc}
+      -> %{level:.4s} %{id:03x}%{color:reset} %{message}'
+    level: info
+    shim: warning
+  mode: net
+  node:
+    runtime: $(DOCKER_NS)/fabric-nodeenv:$(TWO_DIGIT_VERSION)
+  pull: false
+  startuptimeout: 300s
+  system:
+    _lifecycle: enable
+    cscc: enable
+    lscc: enable
+    qscc: enable
+ledger:
+  history:
+    enablehistorydatabase: true
+  pvtdatastore:
+    collelgprocdbbatchesinterval: 1000
+    collelgprocmaxdbbatchsize: 5000
+    deprioritizeddatareconcilerinterval: 60m
+    purgedkeyauditlogging: true
+    purgeinterval: 100
+  snapshots:
+    rootdir: /var/hyperledger/production/snapshots
+  state:
+    couchdbconfig:
+      cachesize: 64
+      couchdbaddress: couchdb0:5984
+      createglobalchangesdb: false
+      internalquerylimit: 1000
+      maxbatchupdatesize: 1000
+      maxretries: 3
+      maxretriesonstartup: 10
+      password: adminpw
+      requesttimeout: 35s
+      username: admin
+    statedatabase: CouchDB
+    totalquerylimit: 100000
+logging_level: ""
+metrics:
+  provider: disabled
+  statsd:
+    address: 127.0.0.1:8125
+    network: udp
+    writeinterval: 10s
+operations:
+  listenaddress: 127.0.0.1:9443
+  tls:
+    clientauthrequired: false
+    clientrootcas:
+      files: []
+    enabled: false
+peer:
+  address: peer0.ingenieria.usac.edu.gt:7051
+  addressautodetect: false
+  authentication:
+    timewindow: 15m
+  bccsp:
+    default: SW
+    sw:
+      hash: SHA2
+      security: 256
+  client:
+    conntimeout: 3s
+  deliveryclient:
+    blockgossipenabled: true
+    conntimeout: 3s
+    reconnectbackoffthreshold: 3600s
+    reconnecttotaltimethreshold: 3600s
+  discovery:
+    authcacheenabled: true
+    authcachemaxsize: 1000
+    authcachepurgeretentionratio: 0.75
+    enabled: true
+    orgmembersallowedaccess: false
+  filesystempath: /var/hyperledger/production
+  gateway:
+    broadcasttimeout: 30s
+    dialtimeout: 2m
+    enabled: true
+    endorsementtimeout: 30s
+  gossip:
+    aliveexpirationtimeout: 25s
+    alivetimeinterval: 5s
+    bootstrap: peer0.ingenieria.usac.edu.gt:7051
+    conntimeout: 2s
+    dialtimeout: 3s
+    digestwaittime: 1s
+    election:
+      leaderalivethreshold: 10s
+      leaderelectionduration: 5s
+      membershipsampleinterval: 1s
+      startupgraceperiod: 15s
+    externalendpoint: peer0.ingenieria.usac.edu.gt:7051
+    maxblockcounttostore: 10
+    maxconnectionattempts: 120
+    maxpropagationburstlatency: 10ms
+    maxpropagationburstsize: 10
+    membershiptrackerinterval: 5s
+    msgexpirationfactor: 20
+    orgleader: true
+    propagateiterations: 1
+    propagatepeernum: 3
+    publishcertperiod: 10s
+    publishstateinfointerval: 4s
+    pullinterval: 4s
+    pullpeernum: 3
+    pvtdata:
+      btlpullmargin: 10
+      implicitcollectiondisseminationpolicy:
+        maxpeercount: 1
+        requiredpeercount: 0
+      pullretrythreshold: 60s
+      pushacktimeout: 3s
+      reconcilebatchsize: 10
+      reconcilesleepinterval: 1m
+      reconciliationenabled: true
+      skippullinginvalidtransactionsduringcommit: false
+      transientstoremaxblockretention: 1000
+    reconnectinterval: 25s
+    recvbuffsize: 20
+    requeststateinfointerval: 4s
+    requestwaittime: 1500ms
+    responsewaittime: 2s
+    sendbuffsize: 200
+    skipblockverification: false
+    state:
+      batchsize: 10
+      blockbuffersize: 20
+      checkinterval: 10s
+      enabled: false
+      maxretries: 3
+      responsetimeout: 3s
+    useleaderelection: false
+  handlers:
+    authfilters:
+    - name: DefaultAuth
+    - name: ExpirationCheck
+    decorators:
+    - name: DefaultDecorator
+    endorsers:
+      escc:
+        name: DefaultEndorsement
+    validators:
+      vscc:
+        name: DefaultValidation
+  id: peer0.ingenieria.usac.edu.gt
+  keepalive:
+    client:
+      interval: 60s
+      timeout: 20s
+    deliveryclient:
+      interval: 60s
+      timeout: 20s
+    interval: 7200s
+    mininterval: 60s
+    timeout: 20s
+  limits:
+    concurrency:
+      deliverservice: 2500
+      endorserservice: 2500
+      gatewayservice: 500
+  listenaddress: 0.0.0.0:7051
+  localmspid: IngenieriaMSP
+  localmsptype: bccsp
+  maxrecvmsgsize: 104857600
+  maxsendmsgsize: 104857600
+  mspconfigpath: msp
+  networkid: dev
+  profile:
+    enabled: "true"
+    listenaddress: 0.0.0.0:6060
+  tls:
+    cert:
+      file: tls/server.crt
+    clientauthrequired: false
+    clientrootcas:
+      files:
+      - tls/ca.crt
+    enabled: "false"
+    key:
+      file: tls/server.key
+    rootcert:
+      file: tls/ca.crt
+vm:
+  docker:
+    attachstdout: false
+    hostconfig:
+      logconfig:
+        config:
+          max-file: "5"
+          max-size: 50m
+        type: json-file
+      memory: 2147483648
+      networkmode: red-usac
+    tls:
+      ca:
+        file: docker/ca.crt
+      cert:
+        file: docker/tls.crt
+      enabled: false
+      key:
+        file: docker/tls.key
+  endpoint: unix:///host/var/run/docker.sock
+2026-10-07 23:00:00.381 UTC 0003 INFO [peer] getLocalAddress -> Auto-detected peer address: 172.18.0.5:7051
+2026-10-07 23:00:00.381 UTC 0004 INFO [peer] getLocalAddress -> Returning peer0.ingenieria.usac.edu.gt:7051
+2026-10-07 23:00:00.383 UTC 0005 INFO [nodeCmd] initGrpcSemaphores -> concurrency limit for endorser service is 2500
+2026-10-07 23:00:00.383 UTC 0006 INFO [nodeCmd] initGrpcSemaphores -> concurrency limit for deliver service is 2500
+2026-10-07 23:00:00.383 UTC 0007 INFO [nodeCmd] initGrpcSemaphores -> concurrency limit for gateway service is 500
+2026-10-07 23:00:00.417 UTC 0008 INFO [certmonitor] trackCertExpiration -> The enrollment certificate will expire on 2027-11-10 13:41:11 +0000 UTC
+2026-10-07 23:00:00.418 UTC 0009 INFO [ledgermgmt] NewLedgerMgr -> Initializing LedgerMgr
+2026-10-07 23:00:00.479 UTC 000a INFO [leveldbhelper] openDBAndCheckFormat -> DB is empty Setting db format as 2.0
+2026-10-07 23:00:00.482 UTC 000b INFO [blkstorage] NewProvider -> Creating new file ledger directory at /var/hyperledger/production/ledgersData/chains/chains
+2026-10-07 23:00:00.509 UTC 000c INFO [leveldbhelper] openDBAndCheckFormat -> DB is empty Setting db format as 2.5
+2026-10-07 23:00:00.517 UTC 000d INFO [leveldbhelper] openDBAndCheckFormat -> DB is empty Setting db format as 2.0
+2026-10-07 23:00:05.538 UTC 000e WARN [couchdb] handleRequest -> Attempt 1 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 125ms
+2026-10-07 23:00:10.663 UTC 000f WARN [couchdb] handleRequest -> Attempt 2 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 250ms
+2026-10-07 23:00:15.914 UTC 0010 WARN [couchdb] handleRequest -> Attempt 3 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 500ms
+2026-10-07 23:00:21.416 UTC 0011 WARN [couchdb] handleRequest -> Attempt 4 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 1s
+2026-10-07 23:00:27.417 UTC 0012 WARN [couchdb] handleRequest -> Attempt 5 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 2s
+2026-10-07 23:00:34.418 UTC 0013 WARN [couchdb] handleRequest -> Attempt 6 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 4s
+2026-10-07 23:00:43.420 UTC 0014 WARN [couchdb] handleRequest -> Attempt 7 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 8s
+2026-10-07 23:00:56.421 UTC 0015 WARN [couchdb] handleRequest -> Attempt 8 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 16s
+2026-10-07 23:01:17.423 UTC 0016 WARN [couchdb] handleRequest -> Attempt 9 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 32s
+2026-10-07 23:01:54.424 UTC 0017 WARN [couchdb] handleRequest -> Attempt 10 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retrying couchdb request in 1m4s
+2026-10-07 23:03:03.426 UTC 0018 WARN [couchdb] handleRequest -> Attempt 11 of 11 returned error: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout. Retries exhausted
+panic: Error in instantiating ledger provider: Get "http://couchdb0:5984/": dial tcp 172.18.0.4:5984: i/o timeout
+http error calling couchdb
+github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/statedb/statecouchdb.(*couchInstance).handleRequest
+	/core/ledger/kvledger/txmgmt/statedb/statecouchdb/couchdb.go:1714
+github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/statedb/statecouchdb.(*couchInstance).verifyCouchConfig
+	/core/ledger/kvledger/txmgmt/statedb/statecouchdb/couchdb.go:353
+github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/statedb/statecouchdb.createCouchInstance
+	/core/ledger/kvledger/txmgmt/statedb/statecouchdb/couchdbutil.go:88
+github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/statedb/statecouchdb.NewVersionedDBProvider
+	/core/ledger/kvledger/txmgmt/statedb/statecouchdb/statecouchdb.go:56
+github.com/hyperledger/fabric/core/ledger/kvledger/txmgmt/privacyenabledstate.NewDBProvider
+	/core/ledger/kvledger/txmgmt/privacyenabledstate/db.go:66
+github.com/hyperledger/fabric/core/ledger/kvledger.(*Provider).initStateDBProvider
+	/core/ledger/kvledger/kv_ledger_provider.go:234
+github.com/hyperledger/fabric/core/ledger/kvledger.NewProvider
+	/core/ledger/kvledger/kv_ledger_provider.go:118
+github.com/hyperledger/fabric/core/ledger/ledgermgmt.NewLedgerMgr
+	/core/ledger/ledgermgmt/ledger_mgmt.go:71
+github.com/hyperledger/fabric/internal/peer/node.serve
+	/internal/peer/node/start.go:445
+github.com/hyperledger/fabric/internal/peer/node.glob..func6
+	/internal/peer/node/start.go:130
+github.com/spf13/cobra.(*Command).execute
+	/vendor/github.com/spf13/cobra/command.go:852
+github.com/spf13/cobra.(*Command).ExecuteC
+	/vendor/github.com/spf13/cobra/command.go:960
+github.com/spf13/cobra.(*Command).Execute
+	/vendor/github.com/spf13/cobra/command.go:897
+main.main
+	/cmd/peer/main.go:56
+runtime.main
+	/usr/local/go/src/runtime/proc.go:250
+runtime.goexit
+	/usr/local/go/src/runtime/asm_amd64.s:1598
+unable to connect to CouchDB, check the hostname and port
+
+goroutine 1 [running]:
+github.com/hyperledger/fabric/core/ledger/ledgermgmt.NewLedgerMgr(0xc0000b3a28)
+	/core/ledger/ledgermgmt/ledger_mgmt.go:85 +0x605
+github.com/hyperledger/fabric/internal/peer/node.serve({0x15f60c0?, 0xc0000b3d30?, 0xc0000b3d08?})
+	/internal/peer/node/start.go:445 +0x2409
+github.com/hyperledger/fabric/internal/peer/node.glob..func6(0x2684e80?, {0x2719e70?, 0x0?, 0x0?})
+	/internal/peer/node/start.go:130 +0x56
+github.com/spf13/cobra.(*Command).execute(0x2684e80, {0x2719e70, 0x0, 0x0})
+	/vendor/github.com/spf13/cobra/command.go:852 +0x67c
+github.com/spf13/cobra.(*Command).ExecuteC(0x2685880)
+	/vendor/github.com/spf13/cobra/command.go:960 +0x39d
+github.com/spf13/cobra.(*Command).Execute(...)
+	/vendor/github.com/spf13/cobra/command.go:897
+main.main()
+	/cmd/peer/main.go:56 +0x352
